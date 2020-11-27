@@ -1,0 +1,21 @@
+# IntellijIdea files
+В.iml
+.idea
+
+src/bookvy
+src/bookvy/PopupListener.java
+src/bookvy/PopupMenu.java
+
+src/howMuchLetters
+src/howMuchLetters/HowMuchLetters.java
+src/howMuchLetters/HowMuchLetters.form
+
+src/kalkooliasha
+src/obrazets
+src/oovelichenieNaOdin
+src/Test
+src/v
+
+
+src/wordSearch/MyHighlightPainter.java
+src/wordSearch/FileTest.java
