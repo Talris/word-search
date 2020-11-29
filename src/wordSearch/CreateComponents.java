@@ -11,35 +11,36 @@ import java.awt.*;
  * To change this template use File | Settings | File Templates.
  */
 class CreateComponents {
-    String lablePrefix = "";     //Num of words:
+    String labelPrefix = "";     //Num of words:
     JTextArea textArea;
     JTextField textField;
     JScrollPane scrollPane;
+    JToolBar toolBar;
     JButton searchButton;
-    JButton searchMenu;
+    JButton searchToolBar;
     JButton nextButton;
     JButton prevButton;
     JLabel infoLabel;
-    JPanel pane, rootPane, northPane;
+    JPanel searchPane, rootPane;
 
     Component createComponents() {
         textArea = new JTextArea("if you gonna Ride, don`t ride on white horse. if you gonna Ride, ride on white pony.");  //30, 50
         textField = new JTextField("ride");
         scrollPane = new JScrollPane(textArea);
+        toolBar = new JToolBar();
         // Явное объявление переменной
-        //ImageIcon northSearchIcon = new ImageIcon("src/com/talris/bookvy/wordSearch/searchIcon.png");
+        //ImageIcon searchToolIcon = new ImageIcon("src/com/talris/bookvy/wordSearch/searchIcon.png");
 
-        ImageIcon northSearchIcon = createImageIcon("images/searchIcon.png");
-
-        searchMenu = new JButton(northSearchIcon);
+        ImageIcon searchToolIcon = createImageIcon("images/searchIcon.png");
+        searchToolBar = new JButton(searchToolIcon);
         searchButton = new JButton("Search");
         nextButton = new JButton("Next");
         prevButton = new JButton("Prev");
-        infoLabel = new JLabel();           //lablePrefix + "0"
+        infoLabel = new JLabel();           //labelPrefix + "0"
 
         // корневая панель для приложения
         // в CENTER расположен textArea и scrollPane,
-        // а в EAST панель pane
+        // а в EAST панель searchPane
         rootPane = new JPanel();
         BorderLayout rootLayout = new BorderLayout();
         rootPane.setLayout(rootLayout);
@@ -49,12 +50,13 @@ class CreateComponents {
         // nextButton
         // prevButton
         // infoLabel
-        pane = new JPanel();
+        searchPane = new JPanel();
         GridBagLayout gridbag = new GridBagLayout();
-        pane.setLayout(gridbag);
+        searchPane.setLayout(gridbag);
 
-        northPane = new JPanel();
-        northPane.setLayout(gridbag);
+        toolBar.setLayout(gridbag);
+        toolBar.setFloatable(false); // фиксирует toolbar
+        toolBar.setRollover(true); // подсвечивает кнопку при наведении курсора
 
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
@@ -67,24 +69,10 @@ class CreateComponents {
 
         rootPane.add(scrollPane, BorderLayout.CENTER);
 
-        // textArea
-        // textArea.setPreferredSize(new Dimension(700, 500));
 
-        /*
-        GridBagConstraints textPaneConstrains = new GridBagConstraints();
-        textPaneConstrains.gridwidth = 10;
-        textPaneConstrains.gridheight = 10;
-        textPaneConstrains.gridx = 0;
-        textPaneConstrains.gridy = 0;
-        textPaneConstrains.weightx = 1.0;
-        textPaneConstrains.weighty = 1.0;
 
-        */
-        //textPaneConstrains.anchor =  GridBagConstraints.NORTH;
-        //textPaneConstrains.fill = GridBagConstraints.BOTH;
-        //textArea.setPreferredSize(new Dimension(300, 150));
 
-        // pane.add(textArea, textPaneConstrains);
+
 
         // scrollPane
         /*
@@ -101,27 +89,25 @@ class CreateComponents {
          /*13 november
          scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
          scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-         pane.add(scrollPane, scrollPaneConstrains);
+         searchPane.add(scrollPane, scrollPaneConstrains);
          */
-        //pane.add(scrollPane);
+        //searchPane.add(scrollPane);
 
-        //searchMenu
-        GridBagConstraints searchMenuConstrains = new GridBagConstraints();
-        searchMenuConstrains.gridx = 14;
-        searchMenuConstrains.gridy = 0;
-        searchMenuConstrains.gridwidth = 1;
-        searchMenuConstrains.gridheight = 1;
-        searchMenuConstrains.weightx = 1.0;
-        searchMenuConstrains.weighty = 1.0;
-        searchMenuConstrains.anchor = GridBagConstraints.LINE_END;
+        //searchToolBar
+        GridBagConstraints searchToolConstrains = new GridBagConstraints();
+        searchToolConstrains.gridx = 14;
+        searchToolConstrains.gridy = 0;
+        searchToolConstrains.gridwidth = 1;
+        searchToolConstrains.gridheight = 1;
+        searchToolConstrains.weightx = 1.0;
+        searchToolConstrains.weighty = 1.0;
+        searchToolConstrains.anchor = GridBagConstraints.LINE_END;
         // устанавливаем размер кнопки
-        searchMenu.setPreferredSize(new Dimension(26, 26));
+        searchToolBar.setPreferredSize(new Dimension(26, 26));
         // присваиваем кнопке подсказку
-        searchMenu.setToolTipText("Поиск");
+        searchToolBar.setToolTipText("Поиск");
 
-        //searchButtonConstrains.fill = GridBagConstraints.HORIZONTAL;
-        northPane.add(searchMenu, searchMenuConstrains);
-
+        toolBar.add(searchToolBar, searchToolConstrains);
 
         // textField
         GridBagConstraints textFieldConstrains = new GridBagConstraints();
@@ -131,10 +117,9 @@ class CreateComponents {
         textFieldConstrains.gridheight = 1;
         textFieldConstrains.weightx = 1.0;
         textFieldConstrains.weighty = 1.0;
-        //textFieldConstrains.anchor = GridBagConstraints.NORTHWEST;
         textFieldConstrains.fill = GridBagConstraints.HORIZONTAL;
         textField.setFont(textField.getFont().deriveFont(Font.PLAIN, 16));
-        pane.add(textField, textFieldConstrains);
+        searchPane.add(textField, textFieldConstrains);
 
 
         //searchButton
@@ -152,11 +137,7 @@ class CreateComponents {
         //searchButton.setToolTipText("Поиск");
 
         //searchButtonConstrains.fill = GridBagConstraints.HORIZONTAL;
-        pane.add(searchButton, searchButtonConstrains);
-
-
-
-
+        searchPane.add(searchButton, searchButtonConstrains);
 
 
         // nextButton
@@ -167,11 +148,10 @@ class CreateComponents {
         nextButtonConstrains.gridheight = 1;
         nextButtonConstrains.weightx = 1.0;
         nextButtonConstrains.weighty = 1.0;
-        //nextButtonConstrains.anchor = GridBagConstraints.NORTHWEST;
         nextButtonConstrains.fill = GridBagConstraints.HORIZONTAL;
         // делаем размер nextButton такойже как и у searchButton
         nextButton.setPreferredSize(searchButton.getPreferredSize());
-        pane.add(nextButton, nextButtonConstrains);
+        searchPane.add(nextButton, nextButtonConstrains);
 
         // prevButton
         GridBagConstraints prevButtonConstrains = new GridBagConstraints();
@@ -181,11 +161,10 @@ class CreateComponents {
         prevButtonConstrains.gridheight = 1;
         prevButtonConstrains.weightx = 1.0;
         prevButtonConstrains.weighty = 1.0;
-        //prevButtonConstrains.anchor = GridBagConstraints.NORTHWEST;
         prevButtonConstrains.fill = GridBagConstraints.HORIZONTAL;
         // делаем размер prevButton такойже как и у searchButton
         prevButton.setPreferredSize(searchButton.getPreferredSize());
-        pane.add(prevButton, prevButtonConstrains);
+        searchPane.add(prevButton, prevButtonConstrains);
 
         // infoLabel
         GridBagConstraints infoLabelConstrains = new GridBagConstraints();
@@ -195,22 +174,22 @@ class CreateComponents {
         infoLabelConstrains.gridheight = 1;
         infoLabelConstrains.weightx = 1.0;
         infoLabelConstrains.weighty = 1.0;
-        //infoLabelConstrains.fill = GridBagConstraints.HORIZONTAL;
         infoLabelConstrains.insets = new Insets(0, 10, 0, 10);
         //infoLabelConstrains.anchor = GridBagConstraints.NORTHWEST;
-        pane.add(infoLabel, infoLabelConstrains);
+        searchPane.add(infoLabel, infoLabelConstrains);
 
-        pane.setBorder(BorderFactory.createEmptyBorder(
+        searchPane.setBorder(BorderFactory.createEmptyBorder(
                 15, //top
                 5, //left
                 10, //bottom
                 5) //right
         );
 
-        pane.setVisible(false);
-        pane.setEnabled(true);
-        rootPane.add(northPane, BorderLayout.NORTH);
-        rootPane.add(pane, BorderLayout.EAST);
+        searchPane.setVisible(false);
+        searchPane.setEnabled(true);
+        rootPane.add(toolBar, BorderLayout.NORTH);
+        rootPane.add(searchPane, BorderLayout.EAST);
+
 
 
 
@@ -220,14 +199,14 @@ class CreateComponents {
     void listeners() {
         SearchEngine se = new SearchEngine(this);
 
-        searchMenu.addActionListener(se);
+        searchToolBar.addActionListener(se);
         searchButton.addActionListener(se);
         nextButton.addActionListener(se);
         prevButton.addActionListener(se);
 
     }
 
-    public static ImageIcon createImageIcon(String path) {
+    private static ImageIcon createImageIcon(String path) {
         java.net.URL imgURL = CreateComponents.class.getResource(path);
 
         if (imgURL != null) {
@@ -238,5 +217,4 @@ class CreateComponents {
         }
 
     }
-
 }

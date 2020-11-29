@@ -28,16 +28,16 @@ class SearchEngine implements ActionListener {
         this.parent = parent;
     }
     // метод для отрисовки выделения слов в textArea и изменеия infoLabel
-    public static void select(CreateComponents parent, TreeMap<Integer, Integer> positionInText,
+    private static void select(CreateComponents parent, TreeMap<Integer, Integer> positionInText,
                               int currentWord, int num, String word) {
         parent.textArea.requestFocusInWindow();
         parent.textArea.setSelectionStart(positionInText.get(currentWord));
         parent.textArea.setSelectionEnd(positionInText.get(currentWord) + word.length());
         // счетчик номера выделенного слова относительно общего количества совпадений
-        parent.infoLabel.setText(parent.lablePrefix + currentWord + "/" + num);
+        parent.infoLabel.setText(parent.labelPrefix + currentWord + "/" + num);
     }
     // нужно игнорировать upperCase
-    public static Character changeCase(int pos, String str) {
+    private static Character changeCase(int pos, String str) {
         char ch = str.charAt(pos);
         if (Character.isUpperCase(ch)) {
             ch = Character.toLowerCase(ch);
@@ -49,12 +49,12 @@ class SearchEngine implements ActionListener {
         try {
             Object src = evt.getSource();
 
-            if (src == parent.searchMenu) {
+            if (src == parent.searchToolBar) {
                 if (!isPressed) {
-                    parent.pane.setVisible(true);
+                    parent.searchPane.setVisible(true);
                     isPressed = true;
                 } else {
-                    parent.pane.setVisible(false);
+                    parent.searchPane.setVisible(false);
                     isPressed = false;
                 }
 
@@ -117,11 +117,11 @@ class SearchEngine implements ActionListener {
                     }
                     //поработать повторный поиск слова которого нет
                     else {
-                        parent.infoLabel.setText(parent.lablePrefix + "0");
+                        parent.infoLabel.setText(parent.labelPrefix + "0");
                     }
 
                 } else {
-                    parent.infoLabel.setText(parent.lablePrefix);        // + "0"
+                    parent.infoLabel.setText(parent.labelPrefix);        // + "0"
                     JOptionPane.showMessageDialog(null, "Enter a word to search");
                 }
 
